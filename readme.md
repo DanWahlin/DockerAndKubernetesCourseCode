@@ -1,3 +1,3 @@
-## Code for the Docker and Kubernetes Course
+## Docker and Kubernetes Course
 
 https://codewithdan.com/products/docker-kubernetes
