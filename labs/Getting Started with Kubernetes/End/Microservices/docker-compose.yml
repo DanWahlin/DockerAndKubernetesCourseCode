@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+
+  lookup.api:
+    image: ${DOCKER_REGISTRY}lookupapi
+    build:
+      context: .
+      dockerfile: Services/Lookup.API/Dockerfile
+
+
+  customers.api:
+    image: ${DOCKER_REGISTRY}customersapi
+    build:
+      context: .
+      dockerfile: Services/Customers.API/Dockerfile
+    depends_on:
+      - lookup.api
+
+  monolithtomicroservices:
+    image: ${DOCKER_REGISTRY}monolithtomicroservices
+    build:
+      context: .
+      dockerfile: MonolithToMicroservices/Dockerfile
+    depends_on:
+      - lookup.api
+      - customers.api
+

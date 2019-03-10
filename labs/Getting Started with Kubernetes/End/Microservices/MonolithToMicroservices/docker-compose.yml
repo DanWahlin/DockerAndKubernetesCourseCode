@@ -1,0 +1,57 @@
+version: '3.4'
+
+services:
+
+  web:
+    container_name: monolithtomicroservices
+    image: monolithtomicroservices
+    build:
+      context: .
+      dockerfile: app.dev.dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=development
+    volumes:
+      - .:/var/www/app
+    ports:
+     - "5000:80"
+    depends_on:
+      - lookup.api
+      - customers.api
+    networks:
+      - aspnetcoreapp-network
+
+  lookup.api:
+    container_name: lookup.api
+    image: lookup.api
+    build:
+      context: ../Services/Lookup.API
+      dockerfile: Lookup.API.dev.dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=development
+    volumes:
+      - ../Services/Lookup.API:/var/www/app
+    ports:
+     - "80"
+    networks:
+      - aspnetcoreapp-network
+
+  customers.api:
+    container_name: customers.api
+    image: customers.api
+    build:
+      context: ../Services/Customers.API
+      dockerfile: Customers.API.dev.dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=development
+    volumes:
+      - ../Services/Customers.API:/var/www/app
+    ports:
+     - "80"
+    networks:
+      - aspnetcoreapp-network
+
+networks:
+  aspnetcoreapp-network:
+    driver: bridge
+
+
