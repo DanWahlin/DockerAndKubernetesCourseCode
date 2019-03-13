@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: tomcat-test-green
+  labels:
+    app: tomcat
+    role: test-green
+    env: test
+spec:
+  type: LoadBalancer
+  selector:
+    app: tomcat
+    role: green
+  ports:
+    - port: 9001
+      targetPort: 8080

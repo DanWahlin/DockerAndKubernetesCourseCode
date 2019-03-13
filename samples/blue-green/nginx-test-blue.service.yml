@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: tomcat-test-blue
+  labels:
+    app: tomcat
+    role: test-blue
+    env: test
+spec:
+  type: LoadBalancer
+  selector:
+    app: tomcat
+    role: blue
+  ports:
+    - port: 9000
+      targetPort: 8080

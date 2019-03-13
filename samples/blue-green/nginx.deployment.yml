@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-deployment-$TARGET_ROLE
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tomcat
+      role: $TARGET_ROLE
+  template:
+    metadata:
+      labels:
+        app: tomcat
+        role: $TARGET_ROLE
+    spec:
+      containers:
+      - name: tomcat-container
+        image: tomcat:$TOMCAT_VERSION
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+        resources: {}
