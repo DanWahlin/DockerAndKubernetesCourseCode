@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app
+spec:
+  replicas: 3
+  selector:
+      matchLabels:
+        app: node-app
+  template:
+    metadata:
+      labels:
+        app: node-app
+    spec:
+      containers:
+      - image: node-app:1.0
+        name: node-app
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+        resources: {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  # Place in spec property
+  # minReadySeconds: 10     # Extending time for demo purposes only
+  # revisionHistoryLimit: 5 
+  # strategy:
+  #   type: RollingUpdate 
+  #   rollingUpdate:
+  #     maxSurge: 50%
+  #     maxUnavailable: 50%
