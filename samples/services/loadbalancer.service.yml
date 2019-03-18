@@ -7,10 +7,10 @@ spec:
  selector:
     app: my-nginx
  ports:
- - name: "80"
-   port: 80
-   targetPort: 80
-   
- - name: "443"
-   port: 443
-   targetPort: 443
+  - name: "80"
+    port: 80
+    targetPort: 80
+    
+  - name: "443"
+    port: 443
+    targetPort: 443

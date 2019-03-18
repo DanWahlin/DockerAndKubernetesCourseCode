@@ -16,3 +16,6 @@ spec:
     hostPath:
       path: /var/run/docker.sock
       type: Socket
+
+# Once Pod is created you can shell into it to run Docker commands:
+# kubectl exec [pod-name] -it sh
