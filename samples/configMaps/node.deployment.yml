@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-configmap
+spec:
+  selector:
+    matchLabels:
+      app: node-configmap
+  template:
+    metadata:
+      labels:
+        app: node-configmap
+    spec:
+      containers:
+      - name: node-configmap
+        image: node-configmap
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 9000
+
+        # Reference ConfigMap data at appropriate path (/etc/config)
+        volumeMounts:
+          - name: app-config-vol
+            mountPath: /etc/config
+
+        # Map env variable data to a ConfigMap property
+        env:
+        - name: ENEMIES
+          valueFrom:
+            configMapKeyRef:
+              name: app-settings
+              key: enemies
+              # optional: true    # Can mark a ConfigMap reference as optional
+
+        # Load all ConfigMap keys/values into environment variables (simplified way if you need them all vs. only a few as with "env" above)
+        envFrom:
+        - configMapRef:
+            name: app-settings
+
+      # Define volume that will contain ConfigMap data
+      volumes:
+      - name: app-config-vol
+        configMap:
+          name: app-settings
