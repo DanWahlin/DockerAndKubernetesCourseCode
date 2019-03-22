@@ -10,7 +10,11 @@ only use the local-storage option, however in cloud scenarios the SC/PVC could b
 Mac/Linux: /tmp/data/db
 Windows:   c:/temp/data/db
 
-2. If you're on Windows go into `mongo.deployment.yml` and change the PVs local path to /c/temp/data/db. Save the file.
+2. If you're on Windows go into `mongo.deployment.yml` and change the PersistentVolume's local path to `/c/temp/data/db`. Save the file.
+
+3. Run the following to add the database passwords as secrets:
+
+    `kubectl create secret generic db-passwords --from-literal=db-password='password' --from-literal=db-root-password='password'`
 
 3. Start up the Pod:
 
