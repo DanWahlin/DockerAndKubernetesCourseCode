@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{#block "title"}}Code with Dan{{/block}}</title>
+</head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Code with Dan - JavaScript, Angular, Node.js, ASP.NET, C#, HTML5 training videos and classes.">
+    <meta property="og:image" content="http://www.codewithdan.com/img/codeWithDanLogo.png" />
+    <meta property="og:title" content="Code with Dan" />
+    <meta property="og:description" content="Code with Dan: The best way to learn development and programming technologies and concepts!"/>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
+    <!--<link href='//fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>-->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+
+    <link href="/css/animate.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet" type="text/css" />
+    {{{block "styles"}}}
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+</head>
+<body>
+    <header class="navbar navbar-default navbar-fixed-top" role="navigation">
+         <div class="top-bar">
+            <div class="container-fluid">
+                <div class="wrapper"></div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <nav class="wrapper">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-12">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <div>
+                                <a class="navbar-brand" href="/">
+                                    <img src="/img/codeWithDanLogo.png" alt="Code with Dan Logo" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-xs-12">
+                        <div class="collapse navbar-collapse" id="menu-collapse">
+                            <div class="position-nav-links">
+                                <div class="row top-navbar">
+                                    <div class="col-md-12">
+                                        <ul class="nav navbar-nav navbar-right">
+                                            {{#if isAuthenticated}}
+                                                <li>
+                                                    <a href="/profile">My Account</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/logout">Logout</a>
+                                                </li>
+                                            {{else}}
+                                                <li>
+                                                    <a href="/register">Create an Account</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/login">Login</a>
+                                                </li>
+                                            {{/if}}
+                                            <li>
+                                                <a href="/cart">
+                                                    <span class="fa fa-shopping-cart green"></span>&nbsp;&nbsp;
+                                                    <span class="cartTotal green">{{formatCurrency cartTotal}}</span>&nbsp;&nbsp;
+                                                    <span class="green">Cart</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row bottom-navbar">
+                                    <div class="col-md-12">
+                                        <ul class="nav navbar-nav navbar-right">
+                                            {{#each productTypes}}
+                                                <li><a href="/products/{{title}}">{{linkTitle}}</a></li>
+                                            {{/each}}
+                                            <li><a href="//blog.codewithdan.com">Blog</a></li>
+                                            <li>
+                                                <div class="search-container">
+                                                    <input type="text" placeholder="Search" id="searchText" class="search-box" value="{{searchtext}}" />
+                                                    <button type="submit" id="searchButton" class="btn btn-default search-button">
+                                                        <span class="fa fa-search"></span>
+                                                    </button>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        {{{body}}}
+
+    </main>
+
+    <br /><br />
+
+    <div class="social-section">
+        <div class="container-fluid">
+            <div class="wrapper">
+                <div class="row">
+                    <br />
+                    <div class="col-md-12 center">
+                        {{> social}}
+                    </div>
+                    <br /><br />
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="navbar navbar-inner">
+            <div class="wrapper">
+                <div class="row">
+                    <br />
+                    <div class="col-md-3 padding-footer">
+                        &copy; <span id="year"></span> Wahlin Consulting
+                    </div>
+                    <div class="col-md-9 navbar-collapse navbar-right">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/contact">Contact Us</a></li>
+                            <li><a href="/about">About Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <script src="/js/main.js"></script>
+    <script>
+        codeWithDan.csrf = '{{_csrf}}';
+
+        document.getElementById('year').innerHTML = new Date().getFullYear();
+    </script>
+
+    {{{block "scripts"}}}
+
+</body>
+</html>

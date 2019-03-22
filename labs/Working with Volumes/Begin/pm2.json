@@ -1,0 +1,23 @@
+    {
+      "apps" : [{
+        
+          "name"            : "codewithdan",
+          "script"          : "server.js",
+          "watch"           : true,
+          "ignore_watch"    : [".certs", ".docker", ".vscode", "node_modules"],
+          "log_date_format" : "YYYY-MM-DD HH:mm Z",
+          
+          "env": {
+              "NODE_ENV": "development"
+          },
+          "env_production" : {
+              "NODE_ENV": "production"
+          },
+          "env_staging" : {
+              "NODE_ENV" : "staging"
+          },
+          
+          "help"            : "http://pm2.keymetrics.io/docs/usage/application-declaration"
+          
+      }]
+    }

@@ -1,0 +1,9 @@
+node_modules/
+
+.DS_Store
+.idea/
+.settings/
+.build/
+
+*.iml
+solvedIssues.md

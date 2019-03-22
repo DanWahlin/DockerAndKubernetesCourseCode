@@ -1,0 +1,55 @@
+mongo:
+  image: '<yourHubAccount>/mongo:latest'
+  environment:
+    - MONGODB_DBNAME=codeWithDan
+    - MONGODB_PASSWORD=password
+    - MONGODB_ROLE=readWrite
+    - MONGODB_ROOT_PASSWORD=password
+    - MONGODB_ROOT_ROLE=root
+    - MONGODB_ROOT_USERNAME=dbadmin
+    - MONGODB_USERNAME=webrole
+  ports:
+    - '27017:27017'
+nginx:
+  image: '<yourHubAccount>/nginx:latest'
+  links:
+    - node1
+    - node2
+    - node3
+  ports:
+    - '80:80'
+    - '443:443'
+node1:
+  image: '<yourHubAccount>/node-codewithdan:latest'
+  environment:
+    - NODE_ENV=production
+  links:
+    - mongo
+    - redis
+  ports:
+    - '8080'
+  working_dir: /var/www/codewithdan
+node2:
+  image: '<yourHubAccount>/node-codewithdan:latest'
+  environment:
+    - NODE_ENV=production
+  links:
+    - mongo
+    - redis
+  ports:
+    - '8080'
+  working_dir: /var/www/codewithdan
+node3:
+  image: '<yourHubAccount>/node-codewithdan:latest'
+  environment:
+    - NODE_ENV=production
+  links:
+    - mongo
+    - redis
+  ports:
+    - '8080'
+  working_dir: /var/www/codewithdan
+redis:
+  image: '<yourHubAccount>/redis:latest'
+  ports:
+    - '6379'

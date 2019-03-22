@@ -2,8 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
-    app: mongo-secrets-env
-  name: mongo-secrets-env
+    app: mongo-env
+  name: mongo-env
 data:
   MONGODB_DBNAME: codeWithDan
   MONGODB_ROLE: readWrite
@@ -15,13 +15,7 @@ data:
 
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
-metadata:
-  name: local-storage
-provisioner: kubernetes.io/no-provisioner
-# The reclaim policy applies to the persistent volumes not the storage class itself. 
-# pvs and pvcs that are created using that storage class will inherit the reclaim policy set here.
-reclaimPolicy: Retain
-volumeBindingMode: WaitForFirstConsumer
+
 
 ---
 
@@ -35,15 +29,13 @@ metadata:
 spec:
   capacity:
     storage: 1Gi
-  # volumeMode block feature gate enabled by default with 1.13+
   volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
-  # StorageClass has a reclaim policy default so it'll be "inherited" by the PV
-  # persistentVolumeReclaimPolicy: Retain
-  storageClassName: local-storage
-  local:
-    path: /tmp/data/db
+  # Add storage class name and local path here
+
+  
+
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -62,10 +54,8 @@ metadata:
 spec:
   accessModes:
   - ReadWriteOnce
-  storageClassName: local-storage
-  resources:
-    requests:
-      storage: 1Gi
+# Add storage class name and resource requirements here
+
 
 ---
 
@@ -86,62 +76,48 @@ spec:
       labels:
         app: mongo
     spec:
-      volumes:
-      - name: mongo-volume
-        persistentVolumeClaim:
-          claimName: mongo-pvc
-        # Example only - environment vars actually used here
-      - name: secrets
-        secret:
-          secretName: db-passwords
+      # Add volume here
+
+
+
       containers:
       - env:
         - name: MONGODB_DBNAME
           valueFrom:
             configMapKeyRef:
               key: MONGODB_DBNAME
-              name: mongo-secrets-env
-        # Pull password from secrets
-        - name: MONGODB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: db-passwords
-              key: db-password
+              name: mongo-env
+        # Pull password from secrets (db password)
+
+
         - name: MONGODB_ROLE
           valueFrom:
             configMapKeyRef:
               key: MONGODB_ROLE
-              name: mongo-secrets-env
-        # Pull password from secrets
-        - name: MONGODB_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: db-passwords
-              key: db-root-password
+              name: mongo-env
+        # Pull password from secrets (root password)
+
+
         - name: MONGODB_ROOT_ROLE
           valueFrom:
             configMapKeyRef:
               key: MONGODB_ROOT_ROLE
-              name: mongo-secrets-env
+              name: mongo-env
         - name: MONGODB_ROOT_USERNAME
           valueFrom:
             configMapKeyRef:
               key: MONGODB_ROOT_USERNAME
-              name: mongo-secrets-env
+              name: mongo-env
         - name: MONGODB_USERNAME
           valueFrom:
             configMapKeyRef:
               key: MONGODB_USERNAME
-              name: mongo-secrets-env
-        image: mongo
+              name: mongo-env
+        image: codewithdan/mongo
+        imagePullPolicy: IfNotPresent
         name: mongo
         ports:
         - containerPort: 27017
         resources: {}        
-        volumeMounts:
-        - name: mongo-volume
-          mountPath: /data/db
-        # Example only - environment vars actually used here
-        - name: secrets
-          mountPath: /etc/db-passwords
-          readOnly: true
+        # Add volume mount here
+

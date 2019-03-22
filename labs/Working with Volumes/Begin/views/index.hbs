@@ -1,0 +1,138 @@
+<section class="section feature-section">
+    <div id="carousel-codewithdan" class="carousel slide" data-ride="carousel" data-interval="15000">
+        <ol class="carousel-indicators">
+            {{#each features}}
+                <li data-target="#carousel-codewithdan" data-slide-to="{{@index}}" class="{{#unless @index}}active{{/unless}}"></li>
+            {{/each}}
+        </ol>
+
+        <div class="carousel-inner">
+            {{#each features}}
+                <section class="item full-width-background {{#unless @index}}active{{/unless}}" style="background-image: url({{backgroundImageUrl}});">
+                    <div class="wrapper">
+                        <div class="container-fluid">
+                            {{#if transparentBackground}}
+                                <div class="transparent"></div>
+                            {{/if}}
+                            <div class="row center-block animated fadeInDown">
+                                <div class="col-lg-12 col-md-12 feature-section-content">
+                                    <div class="featured-item">
+                                        <div class="item-name {{#if customCssClass}}{{customCssClass}}{{/if}}">{{title}}</div>
+                                        <br />
+                                        <div class="item-summary {{#if customCssClass}}{{customCssClass}}{{/if}}">{{{text}}}</div>
+                                        {{#if highlightText}}
+                                            <br />
+                                            <div class="item-highlight {{#if customCssClass}}{{customCssClass}}{{/if}}">{{{highlightText}}}</div>
+                                        {{/if}}
+                                        <br /><br />
+                                        <a class="btn btn-primary btn-x-lg" href="{{link}}">{{linkText}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {{/each}}
+        </div>
+
+    <!--<a class="left carousel-control" href="#carousel-codewithdan" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-codewithdan" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>-->
+
+    </div>
+</section>
+
+<section class="section seeit-section">
+    <div class="container-fluid wrapper">
+        <div class="row seeit-section-details">
+            <div class="col-md-4">
+                <section data-sr="wait 1s, ease-in-out 50px">
+                    <header>
+                        <i class="fa fa-lg fa-search orange"></i> see it!
+                    </header>
+                    <br />
+                    <div class="seeit-section-summary">Get focused classroom or video training</div>
+                </section>
+            </div>
+            <div class="col-md-4 remove-col-padding">
+                <section  data-sr="wait 1.5s, ease-in-out 50px">
+                    <header><i class="fa fa-lg fa-bolt yellow"></i> learn it!</header>
+                    <br />
+                    <div class="seeit-section-summary">Learn from industry experts who know how to teach - not just talk</div>
+                </section>
+            </div>
+            <div class="col-md-4">
+                <section  data-sr="wait 2.0s, ease-in-out 50px">
+                    <header><i class="fa fa-lg fa-flask green"></i> code it!</header>
+                    <br />
+                    <div class="seeit-section-summary">Follow along with code recipes, step-by-step videos or hands-on labs</div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="training-section parallax">
+    <div class="container-fluid wrapper">
+        <div class="section-details">
+            <div class="section-headline" data-sr="enter from the top and hustle 50px over 2.5s">
+                <a href="/products/training">
+                    <i class="fa fa-2x fa-users"></i>&nbsp;&nbsp;
+                    Instructor-Led Training
+                </a>
+            </div>
+            <div class="section-desc" data-sr>
+                Get expert onsite or online instructor-led, hands-on training direct from Dan Wahlin and other industry experts.
+            </div>
+            <div>
+                <a class="btn btn-success btn-x-lg" href="/products/training">View Classes</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="videos-section">
+    <div class="container-fluid wrapper">
+        <div class="section-details">
+            <div class="section-headline" data-sr="enter from the top and hustle 50px over 2.5s">
+                <a href="/products/videos">
+                    <i class="fa fa-2x fa-laptop"></i>&nbsp;&nbsp;
+                    Online Training Videos
+                </a>
+            </div>
+            <div class="section-desc" data-sr>
+                Focused video training that maximizes your learning.
+            </div>
+            <div>
+                <a class="btn btn-success btn-x-lg" href="/products/videos">View Video Courses</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="courseware-section">
+    <div class="container-fluid wrapper">
+        <div class="section-details">
+            <div class="section-headline" data-sr="enter from the top and hustle 50px over 2.5s">
+                <a href="/products/courseware">
+                    <i class="fa fa-2x fa-file-text"></i>&nbsp;&nbsp;
+                    Training Courseware
+                </a>
+            </div>
+            <div class="section-desc" data-sr>
+                Get access to the best courseware in the industry for your own instructor-led classes.
+            </div>
+            <div>
+                <a class="btn btn-success btn-x-lg" href="/products/courseware">View Courseware</a>
+            </div>
+        </div>
+</section>
+
+<script src='/js/libs/scrollReveal.min.js'></script>
+<script>
+    //ScrollReveal
+    window.sr = new scrollReveal();
+</script>
