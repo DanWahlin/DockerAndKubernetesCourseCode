@@ -4,9 +4,14 @@ LABEL author="Dan Wahlin"
 
 WORKDIR /var/www/codewithdan
 
-COPY    . .
+COPY ./package.json .
+COPY ./package-lock.json .
 
+ENV NODE_ENV production
 RUN npm install -g pm2@latest
+RUN npm install
+
+COPY    . .
 
 RUN mkdir -p /var/log/pm2
 

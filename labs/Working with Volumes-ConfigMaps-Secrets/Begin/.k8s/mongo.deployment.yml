@@ -33,10 +33,9 @@ spec:
   volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
-  # Add storage class name and local path here
-
-  
-
+  storageClassName: local-storage
+  local:
+    path: /tmp/data/db
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -78,9 +77,12 @@ spec:
       labels:
         app: mongo
     spec:
-      # Add volume here
 
-
+      # Can uncomment following lines if on Mac/Linux (issue on Docker for Windows prevents this from working)
+      # volumes:
+      # - name: mongo-volume
+      #   persistentVolumeClaim:
+      #     claimName: mongo-pvc
 
       containers:
       - env:
@@ -120,6 +122,10 @@ spec:
         name: mongo
         ports:
         - containerPort: 27017
-        resources: {}        
-        # Add volume mount here
+        resources: {}  
+              
+        # Can uncomment following lines if on Mac/Linux (issue on Docker for Windows prevents this from working)     
+        # volumeMounts:
+        # - name: mongo-volume
+        #   mountPath: /data/db
 
