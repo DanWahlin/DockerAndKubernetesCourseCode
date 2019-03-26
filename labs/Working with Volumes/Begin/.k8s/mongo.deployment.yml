@@ -3,7 +3,8 @@ kind: ConfigMap
 metadata:
   labels:
     app: mongo-env
-  name: mongo-env
+
+
 data:
   MONGODB_DBNAME: codeWithDan
   MONGODB_ROLE: readWrite
@@ -43,7 +44,8 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - docker-desktop
+          # - my-node-name goes here
+
 
 ---
 
@@ -54,7 +56,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteOnce
-# Add storage class name and resource requirements here
+  # Add storage class name and resource requirements here
 
 
 ---
