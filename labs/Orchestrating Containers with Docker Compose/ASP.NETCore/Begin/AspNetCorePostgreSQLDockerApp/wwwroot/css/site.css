@@ -1,0 +1,40 @@
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.header-row {
+  background-color: #efefef;
+}
+
+.header-row div {
+  font-weight: bold;
+  margin: 10px 00px 10px 0px;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+input,
+select,
+textarea,
+.alert-danger {
+    max-width: 300px;
+}
+
+.toolbar-item a {
+  cursor: pointer;
+}
+
+input.ng-invalid, select.ng-invalid {
+  border-left: 5px solid #a94442;
+}
+
+input.ng-valid, select.ng-valid {
+  border-left: 5px solid #42A948;
+}

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="">
+    <head>
+        <base href="/" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - Asp.Net Core PostgreSQL Docker/Angular App</title>
+
+        <environment names="Development,Staging,Production">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+            <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        </environment>
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">ASP.NET Core, PostgreSQL, Docker and Angular/TypeScript App</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-controller="Home" asp-action="Index">Docker Commands</a></li>
+                        <li><a asp-controller="Customers" asp-action="Index">Customers</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; 2018 - Wahlin Consulting</p>
+            </footer>
+        </div>
+
+        <environment names="Development,Staging,Production">
+
+        </environment>
+
+        @RenderSection("scripts", required: false)
+    </body>
+</html>
