@@ -39,7 +39,7 @@ spec:
         # Load all ConfigMap keys/values into environment variables (simplified way if you need them all vs. only a few as with "env" above)
         envFrom:
         - configMapRef:
-          name: app-settings
+            name: app-settings
 
       # Define volume that will contain ConfigMap data
       volumes:
