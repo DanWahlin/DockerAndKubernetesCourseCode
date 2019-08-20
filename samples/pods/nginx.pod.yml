@@ -11,6 +11,7 @@ spec:
     image: nginx:alpine
     ports:
     - containerPort: 80
+    resources: 
 
 # To exec into container use:
 # kubectl exec pod-name -it sh
