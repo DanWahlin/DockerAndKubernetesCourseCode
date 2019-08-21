@@ -5,6 +5,7 @@ metadata:
   labels:
     app: my-nginx
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: my-nginx
@@ -18,4 +19,7 @@ spec:
         image: nginx:alpine
         ports:
         - containerPort: 80
-        resources: {}
+        resources:
+          limits:
+            memory: "128Mi" #128 MB
+            cpu: "200m" #200 millicpu (.2 cpu or 20% of the cpu)
