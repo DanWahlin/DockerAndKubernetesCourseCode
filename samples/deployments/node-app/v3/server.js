@@ -1,7 +1,8 @@
 const http = require('http'),
       os = require('os');
 
-console.log("Node v1 server starting...");
+console.log("Node v3 server starting...");
+var requestCount = 0;
 
 var handler = function(request, response) {
   console.log("Request received from: " + request.connection.remoteAddress);
@@ -10,7 +11,7 @@ var handler = function(request, response) {
     response.end("Some internal error has occurred! This is pod " + os.hostname() + "\n");
     return;
   }
-  response.end("Node v2 running in a pod: " + os.hostname() + "\n");
+  response.end("Node v3 running in a pod: " + os.hostname() + "\n");
 };
 
 var www = http.createServer(handler);

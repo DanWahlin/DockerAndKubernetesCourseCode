@@ -1,12 +1,12 @@
 const http = require('http'),
       os = require('os');
 
-console.log("Node v3 server starting...");
+console.log("Node v2 server starting...");
 var requestCount = 0;
 
 var handler = function(request, response) {
   console.log("Request received from: " + request.connection.remoteAddress);
-  if (++requestCount >= 5) {
+  if (++requestCount >= 10) {
     response.writeHead(500);
     response.end("Internal error occurred! This is pod: " + os.hostname() + "\n");
     return;
