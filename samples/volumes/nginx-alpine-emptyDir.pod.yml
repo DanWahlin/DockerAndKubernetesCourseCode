@@ -10,16 +10,19 @@ spec:
       - name: html 
         mountPath: /usr/share/nginx/html
         readOnly: true 
+    resources:
   - name: html-updater 
     image: alpine 
     command: ["/bin/sh", "-c"] 
     args: 
       - while true; do date >> /html/index.html;sleep 10; done 
+    resources:
     volumeMounts: 
       - name: html 
         mountPath: /html 
   volumes: 
   - name: html 
-    emptyDir: {} // lifecycle tied to Pod
-
-#kubectl port-forward nginx-alpine-volume 8080:80
+    emptyDir: {} #lifecycle tied to Pod
+    
+# kubectl apply -f nginx-alpine-emptyDir.pod.yml
+# kubectl port-forward nginx-alpine-volume 8080:80

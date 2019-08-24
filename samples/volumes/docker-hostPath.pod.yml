@@ -11,6 +11,7 @@ spec:
     volumeMounts: 
     - name: docker-socket 
       mountPath: /var/run/docker.sock 
+    resources:
   volumes: 
   - name: docker-socket 
     hostPath:
