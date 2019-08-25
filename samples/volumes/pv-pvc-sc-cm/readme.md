@@ -17,10 +17,10 @@ Windows:   c:/temp/data/db
     `kubectl create -f mongo.deployment.yml`
 
 4. Run `kubectl get pods` to see the pod.
-5. Run `k exec [mongo-pod-name] -it sh` to shell into the container. Run the `mongo` command to make sure the database is working. Type `exit` to exit the shell.
+5. Run `kubectl exec [mongo-pod-name] -it sh` to shell into the container. Run the `mongo` command to make sure the database is working. Type `exit` to exit the shell.
 
     Note: If you have a tool that can hit MongoDB externally you can `kubectl port-forward` to the pod to expose 27017.
 
 6. Delete the mongo Pod: `kubectl delete pod [mongo-pod-name]`
-7. Once the pod is deleted, run `kubectl get pv` and note the reclaim policy that's shown and the status (should show Bound since the policy was Retain
+7. Once the pod is deleted, run `kubectl get pv` and note the reclaim policy that's shown and the status (should show Bound since the policy was Retain)
 8. Delete everything else: `kubectl delete -f mongo.deployment.yml`
