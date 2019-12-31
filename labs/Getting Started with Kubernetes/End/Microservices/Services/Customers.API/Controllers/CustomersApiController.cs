@@ -12,9 +12,9 @@ namespace Customers.API.Controllers
 {
     //Can version API many ways (good discussion here: https://www.troyhunt.com/your-api-versioning-is-wrong-which-is/)
     //Going with version in route to keep it simple
+    [ApiController]
     [Route("api/v1/customers")]
-    [EnableCors("AllowAnyOrigin")]
-    public class CustomersApiController : Controller
+    public class CustomersApiController : ControllerBase
     {
         ICustomersRepository _CustomersRepository;
         ILogger _Logger;

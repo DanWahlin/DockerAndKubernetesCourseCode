@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Text.Json;
+using System.Net.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Customers.API.Models;
-using System.Net.Http;
-using Newtonsoft.Json;
 
 namespace Customers.API.Repository
 {
@@ -37,8 +37,9 @@ namespace Customers.API.Repository
         public async Task InsertCustomersSampleData(CustomersDbContext db)
         {
             var httpClient = new HttpClient();
-            var statesString = await httpClient.GetStringAsync("http://lookup-api/api/v1/lookup/states");
-            var states = JsonConvert.DeserializeObject<List<State>>(statesString);
+            var statesString = await httpClient.GetStringAsync("http://lookup.api/api/v1/lookup/states");
+            var states = JsonSerializer.Deserialize<List<State>>(statesString, 
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             var customers = GetCustomers(states);
             db.Customers.AddRange(customers);
 
@@ -171,6 +172,7 @@ namespace Customers.API.Repository
                 var cityState = citiesStates[i].Split(',');
 
                 var state = states.Where(s => s.Abbreviation == cityState[1]).SingleOrDefault();
+                Console.WriteLine(state.Id);
 
                 var customer = new Customer {
                     FirstName = nameGenderHost[0],

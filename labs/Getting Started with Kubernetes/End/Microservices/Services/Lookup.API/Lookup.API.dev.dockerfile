@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:sdk
+FROM mcr.microsoft.com/dotnet/core/sdk
 
 LABEL author="Dan Wahlin"
 

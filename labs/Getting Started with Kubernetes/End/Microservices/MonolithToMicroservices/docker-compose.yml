@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.7'
 
 services:
 
@@ -13,25 +13,10 @@ services:
     volumes:
       - .:/var/www/app
     ports:
-     - "5000:80"
+     - 5000:80
     depends_on:
       - lookup.api
       - customers.api
-    networks:
-      - aspnetcoreapp-network
-
-  lookup.api:
-    container_name: lookup.api
-    image: lookup.api
-    build:
-      context: ../Services/Lookup.API
-      dockerfile: Lookup.API.dev.dockerfile
-    environment:
-      - ASPNETCORE_ENVIRONMENT=development
-    volumes:
-      - ../Services/Lookup.API:/var/www/app
-    ports:
-     - "80"
     networks:
       - aspnetcoreapp-network
 
@@ -46,7 +31,24 @@ services:
     volumes:
       - ../Services/Customers.API:/var/www/app
     ports:
-     - "80"
+     - 80
+    depends_on:
+      - lookup.api
+    networks:
+      - aspnetcoreapp-network
+
+  lookup.api:
+    container_name: lookup.api
+    image: lookup.api
+    build:
+      context: ../Services/Lookup.API
+      dockerfile: Lookup.API.dev.dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=development
+    volumes:
+      - ../Services/Lookup.API:/var/www/app
+    ports:
+     - 80
     networks:
       - aspnetcoreapp-network
 

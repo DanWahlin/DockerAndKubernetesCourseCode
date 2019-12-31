@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 //https://github.com/dotnet-architecture/eShopOnContainers
 namespace MonolithToMicroservices.Infrastructure
@@ -46,7 +46,7 @@ namespace MonolithToMicroservices.Infrastructure
 
             var requestMessage = new HttpRequestMessage(method, uri);
 
-            requestMessage.Content = new StringContent(JsonConvert.SerializeObject(item), System.Text.Encoding.UTF8, "application/json");
+            requestMessage.Content = new StringContent(JsonSerializer.Serialize(item), System.Text.Encoding.UTF8, "application/json");
 
             if (authorizationToken != null)
             {

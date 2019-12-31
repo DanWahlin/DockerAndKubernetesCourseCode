@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{BE3B6301-5A3E-4E52-BDF2-16EED632D771}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonolithToMicroservices", "MonolithToMicroservices\MonolithToMicroservices.csproj", "{BB7AC950-6AAA-4108-9198-6C3C59F26246}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lookup.API", "Services\Lookup.API\Lookup.API.csproj", "{033F4B50-7526-42B0-B5B5-8F0EBE85C86C}"
@@ -10,8 +12,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4A02F1B4-A053-44FE-8336-24E318ADFD07}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customers.API", "Services\Customers.API\Customers.API.csproj", "{CAC7C1DE-E902-42CB-834D-6A233B7DB89C}"
-EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{BE3B6301-5A3E-4E52-BDF2-16EED632D771}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

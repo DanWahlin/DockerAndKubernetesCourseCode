@@ -20,6 +20,7 @@
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/v1/lookup",
+      "applicationUrl": "http://0.0.0.0:80",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Customers.API.Repository;
+using Microsoft.OpenApi.Models;
 
 namespace Customers.API
 {
@@ -29,7 +30,19 @@ namespace Customers.API
                 options.UseSqlite(Configuration.GetConnectionString("CustomersSqliteConnectionString"));
             });
 
-            services.AddMvc();
+            services.AddControllers();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Application API",
+                    Description = "Application Documentation",
+                    Contact = new OpenApiContact { Name = "Author" },
+                    License = new OpenApiLicense { Name = "MIT", Url = new Uri("https://en.wikipedia.org/wiki/MIT_License") }
+                });
+            });
 
             //Update as appropriate for origin, method, header
             services.AddCors(options =>
@@ -48,12 +61,27 @@ namespace Customers.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, CustomersDbSeeder customersDbSeeder)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, CustomersDbSeeder customersDbSeeder)
         {
 
             app.UseCors("AllowAnyOrigin");
 
-            app.UseMvc();
+            // Enable middleware to serve generated Swagger as a JSON endpoint
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.)
+            // Visit http://localhost:5000/swagger
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
             customersDbSeeder.SeedAsync(app.ApplicationServices).Wait();
         }

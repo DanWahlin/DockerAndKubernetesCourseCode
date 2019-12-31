@@ -18,6 +18,7 @@
     "MonolithToMicroservices": {
       "commandName": "Project",
       "launchBrowser": true,
+      "applicationUrl": "http://0.0.0.0:80",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
