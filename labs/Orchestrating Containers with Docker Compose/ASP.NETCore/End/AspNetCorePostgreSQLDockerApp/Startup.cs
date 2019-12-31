@@ -1,15 +1,17 @@
 using System;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using AspNetCorePostgreSQLDockerApp.Repository;
-using System.IO;
 using Microsoft.Extensions.FileProviders;
-using Swashbuckle.AspNetCore.Swagger;
-using Swashbuckle.AspNetCore.SwaggerUI;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.OpenApi.Models;
+using AspNetCorePostgreSQLDockerApp.Repository;
 
 namespace AspNetCorePostgreSQLDockerApp
 {
@@ -34,7 +36,7 @@ namespace AspNetCorePostgreSQLDockerApp
                     options.UseNpgsql(Configuration["Data:DbContext:CustomersConnectionString"]));
 
 
-            services.AddMvc();
+            services.AddControllersWithViews();
 
             // Add our PostgreSQL Repositories (scoped to each request)
             services.AddScoped<IDockerCommandsRepository, DockerCommandsRepository>();
@@ -46,14 +48,13 @@ namespace AspNetCorePostgreSQLDockerApp
 
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new Info
+                options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
                     Title = "Application API",
                     Description = "Application Documentation",
-                    TermsOfService = "None",
-                    Contact = new Contact { Name = "Author", Url = "" },
-                    License = new License { Name = "MIT", Url = "https://en.wikipedia.org/wiki/MIT_License" }
+                    Contact = new OpenApiContact { Name = "Author" },
+                    License = new OpenApiLicense { Name = "MIT", Url = new Uri("https://en.wikipedia.org/wiki/MIT_License") }
                 });
 
                 // Add XML comment document by uncommenting the following
@@ -69,12 +70,12 @@ namespace AspNetCorePostgreSQLDockerApp
                        .AllowAnyHeader();
             }));
 
-            services.AddRouting(options => options.LowercaseUrls = true);
+            // services.AddRouting(options => options.LowercaseUrls = true);
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
                               DockerCommandsDbSeeder dockerCommandsDbSeeder, CustomersDbSeeder customersDbSeeder)
         {
             if (env.IsDevelopment())
@@ -86,7 +87,14 @@ namespace AspNetCorePostgreSQLDockerApp
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseCors("AllowAllPolicy");
+
             app.UseStaticFiles();
+
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
 
             // Enable middleware to serve generated Swagger as a JSON endpoint
             app.UseSwagger();
@@ -98,15 +106,18 @@ namespace AspNetCorePostgreSQLDockerApp
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            app.UseCors("AllowAllPolicy");
+            app.UseRouting();
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");                   
+                endpoints.MapControllers();
 
-                routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Customers", action = "Index" });
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action}/{id?}");
+
+                // Handle redirecting client-side routes to Customers/Index route
+                endpoints.MapFallbackToController("Index", "Customers");
             });
 
             customersDbSeeder.SeedAsync(app.ApplicationServices).Wait();

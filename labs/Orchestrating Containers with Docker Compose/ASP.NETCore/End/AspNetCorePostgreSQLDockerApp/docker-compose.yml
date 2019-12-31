@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.7'
 
 services:
 
@@ -19,6 +19,7 @@ services:
     container_name: 'postgres'
     image: postgres
     environment:
+      # change this for a "real" app!
       POSTGRES_PASSWORD: password
     networks:
       - aspnetcoreapp-network

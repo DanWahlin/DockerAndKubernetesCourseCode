@@ -11,7 +11,7 @@ spec:
     image: nginx:alpine
     ports:
     - containerPort: 80
-    resources:
+    resources: {}
       
 # kubectl create –f nginx.pod.yml --save-config
 # kubectl describe pod [pod-name]
