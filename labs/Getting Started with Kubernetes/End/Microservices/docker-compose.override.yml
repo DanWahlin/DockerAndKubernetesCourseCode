@@ -7,14 +7,14 @@ services:
     ports:
       - "80"
 
-  lookup.api:
+  lookup-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "80"
 
 
-  customers.api:
+  customers-api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:

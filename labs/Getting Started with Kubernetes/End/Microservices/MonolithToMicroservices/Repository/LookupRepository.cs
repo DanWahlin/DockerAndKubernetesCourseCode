@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Options;
 using MonolithToMicroservices.Infrastructure;
 using MonolithToMicroservices.Models;
-using Newtonsoft.Json;
 using System;
+using System.Text.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,7 +31,7 @@ namespace MonolithToMicroservices.Repository
             try
             {
                 var dataString = await _HttpClient.GetStringAsync(_ApiSettings.LookupUri + "/states");
-                states = JsonConvert.DeserializeObject<List<State>>(dataString);
+                states = JsonSerializer.Deserialize<List<State>>(dataString);
             }
             catch (Exception exp)
             {
