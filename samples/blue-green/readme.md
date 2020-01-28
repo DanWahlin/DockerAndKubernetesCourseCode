@@ -23,18 +23,18 @@ Note that Docker Desktop must be installed and running (Kubernetes support must 
 
 1. Define environment variables for green
 
-`$Env:TARGET_ROLE=blue`
-`$Env:IMAGE_VERSION=nginx-blue`
+`$Env:TARGET_ROLE="blue"`
+`$Env:IMAGE_VERSION="nginx-blue"`
 
 1. Run a script to apply the environment variables to the deployment files
 
-`cat nginx.deployment.yml | sh config.sh | kubectl create --save-config -f -`
-`cat nginx.service.yml | sh config.sh | kubectl create --save-config -f -`
-`kubectl create -f nginx-blue-test.service.yml --save-config`
+`cat nginx.deployment.yml | ./config.ps1 | kubectl create --save-config -f -`
+`cat nginx.service.yml | ./config.ps1 | kubectl create --save-config -f -`
+`kubectl create -f nginx-blue-test.service.yml`
 
 ### Switch to Green Deployment
 
-1. Set the environment variables (commands are shown above) to `green` and `nginx-green` respectively. 
+1. Set the environment variables shown earlier (commands are shown above) to `green` and `nginx-green` respectively. 
 1. Run the Deployment command again to run the green Deployment:
 
 `cat nginx.deployment.yml | sh config.sh | kubectl create --save-config -f -`
@@ -44,10 +44,15 @@ Note that Docker Desktop must be installed and running (Kubernetes support must 
 `kubectl create -f nginx-green-test.service.yml --save-config`
 
 1. Visit `http://localhost:9001` to ensure the green app is working correctly. 
-1. If it is working properly, run the following command to switch the "public" service
-to the green Deployment:
+1. If it is working properly, run the following command to switch the "public" service to the green Deployment:
+
+**Mac**
 
 `cat nginx.service.yml | sh config.sh | kubectl apply -f -`
+
+**Windows**
+
+`cat nginx.service.yml | ./config.ps1 | kubectl create --save-config -f -`
 
 1. Visit `http://localhost` and notice that the green Deployment is now being hit using the "public" service.
 

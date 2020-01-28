@@ -1,7 +1,7 @@
 process {
     Foreach-Object {
-        $_ -replace "\`$TARGET_ROLE", $Env:TARGET_ROLE`
-           -replace "\`$IMAGE_VERSION", $Env:IMAGE_VERSION`
+        $_ -Replace "\`$TARGET_ROLE", $Env:TARGET_ROLE `
+           -Replace "\`$IMAGE_VERSION", $Env:IMAGE_VERSION
      }
 }
 
@@ -20,6 +20,12 @@ process {
 # Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 # To run deployment:
+
+# cat nginx.deployment.yml | ./config.ps1 | kubectl create --save-config -f -
+# cat nginx.service.yml | ./config.ps1 | kubectl create --save-config -f -
+# kubectl create -f nginx-blue-test.service.yml
+
+# To run deployment (harder way...but left in for posterities sake):
 # cat nginx.deployment.yml | %{ $_ -replace "\`$TARGET_ROLE", $Env:TARGET_ROLE } | %{ $_ -replace "\`$IMAGE_VERSION", $Env:IMAGE_VERSION } | kubectl create -f -
 # cat nginx.service.yml | %{ $_ -replace "\`$TARGET_ROLE", $Env:TARGET_ROLE } | %{ $_ -replace "\`$IMAGE_VERSION", $Env:IMAGE_VERSION } | kubectl create -f -
 # kubectl create -f nginx-blue-test.service.yml
