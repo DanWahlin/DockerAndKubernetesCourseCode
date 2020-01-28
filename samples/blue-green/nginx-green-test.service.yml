@@ -1,16 +1,16 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: tomcat-test-green
+  name: nginx-green-test
   labels:
-    app: tomcat
-    role: test-green
+    app: nginx
+    role: green-test
     env: test
 spec:
   type: LoadBalancer
   selector:
-    app: tomcat
+    app: nginx
     role: green
   ports:
     - port: 9001
-      targetPort: 8080
+      targetPort: 80

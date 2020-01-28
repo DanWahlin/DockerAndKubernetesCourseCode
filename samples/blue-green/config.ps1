@@ -1,13 +1,13 @@
 process {
     Foreach-Object {
-        $_ -replace "\`$TARGET_ROLE", $Env:TARGET_ROLE `
-           -replace "\`$TOMCAT_VERSION", $Env:TOMCAT_VERSION
+        $_ -replace "\`$TARGET_ROLE", $Env:TARGET_ROLE`
+           -replace "\`$IMAGE_VERSION", $Env:IMAGE_VERSION`
      }
 }
 
-# Must SET TARGET_ROLE and TOMCAT_VERSION in Powershell command window
+# Must SET TARGET_ROLE and IMAGE_VERSION in Powershell command window
 # $Env:TARGET_ROLE="blue"
-# $Env:TOMCAT_VERSION=7
+# $Env:IMAGE_VERSION=nginx-blue
 
 # If there's an execution security error run to see the policy for Process 
 # and/or CurrentUser
@@ -19,6 +19,9 @@ process {
 # To set for CurrentUser run:
 # Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
-# Running inline example
-# cat nginx.deployment.yml | %{ $_ -replace "\`$TARGET_ROLE", $Env:TARGET_ROLE } | %
-# { $_ -replace "\`$TOMCAT_VERSION", $Env:TOMCAT_VERSION } | kubectl deploy -f -
+# To run deployment:
+# cat nginx.deployment.yml | %{ $_ -replace "\`$TARGET_ROLE", $Env:TARGET_ROLE } | %{ $_ -replace "\`$IMAGE_VERSION", $Env:IMAGE_VERSION } | kubectl create -f -
+# cat nginx.service.yml | %{ $_ -replace "\`$TARGET_ROLE", $Env:TARGET_ROLE } | %{ $_ -replace "\`$IMAGE_VERSION", $Env:IMAGE_VERSION } | kubectl create -f -
+# kubectl create -f nginx-blue-test.service.yml
+
+# To run for green change the environment vars and run the same steps above

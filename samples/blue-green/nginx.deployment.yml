@@ -1,26 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tomcat-deployment-$TARGET_ROLE
+  name: nginx-deployment-$TARGET_ROLE
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: tomcat
+      app: nginx
       role: $TARGET_ROLE
   template:
     metadata:
       labels:
-        app: tomcat
+        app: nginx
         role: $TARGET_ROLE
     spec:
       containers:
-      - name: tomcat-container
-        image: tomcat:$TOMCAT_VERSION
+      - name: nginx-$TARGET_ROLE
+        image: $IMAGE_VERSION
+        imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8080
+        - containerPort: 80
         readinessProbe:
           httpGet:
             path: /
-            port: 8080
+            port: 80
         resources: {}

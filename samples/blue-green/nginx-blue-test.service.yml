@@ -1,16 +1,16 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: tomcat-test-blue
+  name: nginx-blue-test
   labels:
-    app: tomcat
-    role: test-blue
+    app: nginx
+    role: blue-test
     env: test
 spec:
   type: LoadBalancer
   selector:
-    app: tomcat
+    app: nginx
     role: blue
   ports:
     - port: 9000
-      targetPort: 8080
+      targetPort: 80

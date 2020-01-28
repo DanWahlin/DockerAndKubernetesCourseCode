@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+
+  blue:
+    container_name: nginx-blue
+    image: nginx-blue
+    build:
+      context: ./blue
+      dockerfile: blue.dockerfile
+    ports:
+     - 8080:80
+    
+
+  green:
+    container_name: nginx-green
+    image: nginx-green
+    build:
+      context: ./green
+      dockerfile: green.dockerfile
+    ports:
+     - 8081:80

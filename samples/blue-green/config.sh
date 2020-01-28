@@ -1,10 +1,14 @@
 sed 's/\$TARGET_ROLE'"/$TARGET_ROLE/g" |
-sed 's/\$TOMCAT_VERSION'"/$TOMCAT_VERSION/g" |
+sed 's/\$IMAGE_VERSION'"/$IMAGE_VERSION/g" |
 tee
 
-# Must SET TARGET_ROLE and TOMCAT_VERSION in command window
+# Must SET TARGET_ROLE and IMAGE_VERSION in command window
 # export TARGET_ROLE=blue
-# export TOMCAT_VERSION=7
+# export IMAGE_VERSION=nginx-blue
 
-# To Run:
-# cat nginx.deployment.yml | sh config.sh | kubectl create -f -
+# To run deployment:
+# cat nginx.deployment.yml | sh config.sh | kubectl create --save-config -f -
+# cat nginx.service.yml | sh config.sh | kubectl create --save-config -f -
+# kubectl create -f nginx-blue-test.service.yml --save-config
+
+# To run for green change the environment vars and run the same steps above
