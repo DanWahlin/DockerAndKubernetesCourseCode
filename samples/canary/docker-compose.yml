@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+
+  stable:
+    container_name: stable-app
+    image: stable-app
+    build:
+      context: ./stable-app
+      dockerfile: dockerfile
+    ports:
+     - 9000:80
+    
+
+  canary:
+    container_name: canary-app
+    image: canary-app
+    build:
+      context: ./canary-app
+      dockerfile: dockerfile
+    ports:
+     - 9001:80

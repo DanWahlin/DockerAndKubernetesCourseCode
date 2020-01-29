@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: stable-service
+  labels:
+    app: aspnetcore
+spec:
+  type: LoadBalancer
+  selector:
+    app: aspnetcore
+  ports:
+    - port: 80
+      targetPort: 80

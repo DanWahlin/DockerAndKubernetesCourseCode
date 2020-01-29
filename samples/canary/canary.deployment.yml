@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: canary-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aspnetcore
+      track: canary
+  template:
+    metadata:
+      labels:
+        app: aspnetcore
+        track: canary
+    spec:
+      containers:
+      - name: canary-app
+        image: canary-app
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+        resources: {}

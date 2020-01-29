@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stable-deployment
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: aspnetcore
+      track: stable
+  template:
+    metadata:
+      labels:
+        app: aspnetcore
+        track: stable
+    spec:
+      containers:
+      - name: stable-app
+        image: stable-app
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+        resources: {}
