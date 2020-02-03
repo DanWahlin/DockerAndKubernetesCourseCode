@@ -11,11 +11,13 @@ Note that Docker Desktop must be installed and running (Kubernetes support must 
 1. Define environment variables for green
 
 `export TARGET_ROLE=blue`
+
 `export IMAGE_VERSION=nginx-blue`
 
 1. Run a script to apply the environment variables to the deployment files
 
 `cat nginx.deployment.yml | sh config.sh | kubectl create --save-config -f -`
+
 `cat nginx.service.yml | sh config.sh | kubectl create --save-config -f -`
 `kubectl create -f nginx-blue-test.service.yml`
 
@@ -24,11 +26,13 @@ Note that Docker Desktop must be installed and running (Kubernetes support must 
 1. Define environment variables for green
 
 `$Env:TARGET_ROLE="blue"`
+
 `$Env:IMAGE_VERSION="nginx-blue"`
 
 1. Run a script to apply the environment variables to the deployment files
 
 `cat nginx.deployment.yml | ./config.ps1 | kubectl create --save-config -f -`
+
 `cat nginx.service.yml | ./config.ps1 | kubectl create --save-config -f -`
 `kubectl create -f nginx-blue-test.service.yml`
 
