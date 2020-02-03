@@ -41,9 +41,15 @@ Note that Docker Desktop must be installed and running (Kubernetes support must 
 ### Switch to Green Deployment
 
 1. Set the environment variables shown earlier (commands are shown above) to `green` and `nginx-green` respectively. 
-1. Run the Deployment command again to run the green Deployment:
+1. Run the Deployment command again to get the green Deployment running:
+
+    ### Mac
 
     `cat nginx.deployment.yml | sh config.sh | kubectl create --save-config -f -`
+
+    ### Windows
+
+    `cat nginx.deployment.yml | ./config.ps1 | kubectl create --save-config -f -`
 
 1. Create the green test Service:
 
@@ -61,6 +67,8 @@ Note that Docker Desktop must be installed and running (Kubernetes support must 
     `cat nginx.service.yml | ./config.ps1 | kubectl create --save-config -f -`
 
 1. Visit `http://localhost` and notice that the green Deployment is now being hit using the "public" service.
+
+1. Delete the blue test service and deployment once done.
 
 
 
