@@ -1,0 +1,20 @@
+{
+  "name": "dashboard",
+  "version": "1.0.0",
+  "description": "Kubernetes Blue-Green Dashboard",
+  "main": "dashboard.js",
+  "scripts": {
+    "build": "tsc --build ./tsconfig.json",
+    "build:w": "tsc --build --watch ./tsconfig.json",
+    "start": "node dist/dashboard.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@kubernetes/client-node": "^0.11.1",
+    "easy-table": "^1.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^3.7.5"
+  }
+}
