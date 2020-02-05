@@ -24,4 +24,11 @@ spec:
           httpGet:
             path: /
             port: 80
-        resources: {}
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+        resources:
+          limits:
+            memory: "128Mi" #128 MB
+            cpu: "200m" #200 millicpu (.2 cpu or 20% of the cpu)
