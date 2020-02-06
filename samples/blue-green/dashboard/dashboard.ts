@@ -8,7 +8,7 @@ const appsV1Api = kc.makeApiClient(k8s.AppsV1Api);
 const coreV1Api = kc.makeApiClient(k8s.CoreV1Api);
 const roles = ['blue', 'green'];
 
-appsV1Api.listNamespacedDeployment('default').then(res => {
+appsV1Api.listNamespacedDeployment('default',).then(res => {
     let deployments = [];
     for (const deployment of res.body.items) {
         let role = deployment.spec.template.metadata.labels.role;

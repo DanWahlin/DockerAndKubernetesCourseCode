@@ -3,6 +3,9 @@ kind: Job
 metadata:
   name: pie-counter
 spec:
+  completions: 4 # require 4 Pods to complete for a succesful job
+  parallelism: 2 # allow up to 2 Pods to run in parallel
+  activeDeadlineSeconds: 240 # how long can the job be active before it's terminated?
   template:
     metadata:
       name: pie-counter
@@ -14,4 +17,4 @@ spec:
         command:
          - "sh"
          - "-c"
-         - "echo 'scale=1000; 4*a(1)' | bc -l;sleep 2;echo 'scale=5000; 4*a(1)' | bc -l;"
+         - "echo 'scale=1000; 4*a(1)' | bc -l;sleep 2;"
