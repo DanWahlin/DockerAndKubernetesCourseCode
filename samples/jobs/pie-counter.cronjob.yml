@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: pie-counter
+spec:
+  schedule: # "*/1 * * * *" # Run the job every minute
+  jobtemplate:
+    spec:
+      metadata:
+        name: pie-counter
+      # concurrencyPolicy Choices:
+      #   Allow (it's OK to run concurrent jobs)
+      #   Forbid (no concurrent jobs) 
+      #   Replace (replace unfinished job with new one)
+      concurrencyPolicy: Allow 
+      template:
+        restartPolicy: OnFailure # OnFailure or Never
+        containers:
+        - name: pie-counter
+          image: alpine
+          command:
+          - "sh"
+          - "-c"
+          - "echo 'scale=1000; 4*a(1)' | bc -l;sleep 2;echo 'scale=5000; 4*a(1)' | bc -l;"

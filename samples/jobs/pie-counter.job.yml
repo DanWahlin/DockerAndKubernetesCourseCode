@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pie-counter
+spec:
+  template:
+    metadata:
+      name: pie-counter
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: pie-counter
+        image: alpine
+        command:
+         - "sh"
+         - "-c"
+         - "echo 'scale=1000; 4*a(1)' | bc -l;sleep 2;echo 'scale=5000; 4*a(1)' | bc -l;"
