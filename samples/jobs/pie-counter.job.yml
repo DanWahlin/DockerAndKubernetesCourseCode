@@ -7,7 +7,7 @@ spec:
     metadata:
       name: pie-counter
     spec:
-      restartPolicy: Never
+      restartPolicy: Never # OnFailure or Never
       containers:
       - name: pie-counter
         image: alpine
