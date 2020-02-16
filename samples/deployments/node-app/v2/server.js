@@ -11,7 +11,7 @@ var handler = function(request, response) {
     response.end("Internal error occurred! This is pod: " + os.hostname() + "\n");
     return;
   }
-  response.end("Node v3 running in a pod: " + os.hostname() + "\n");
+  response.end("Node v2 running in a pod: " + os.hostname() + "\n");
 };
 
 var www = http.createServer(handler);
