@@ -1,14 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: prometheus
+  name: prometheus-service
+  namespace: monitoring
+  annotations:
+      prometheus.io/scrape: 'true'
+      prometheus.io/port:   '9090'
 spec:
-  type: LoadBalancer
-  selector:
+  selector: 
     app: prometheus-server
+  type: NodePort  
   ports:
-    - port: 80
-      targetPort: 9090
+    - port: 9090
+      targetPort: 9090 
+      nodePort: 30000
 
 ---
 
@@ -16,7 +21,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: prometheus-deployment
-  # namespace: monitoring
+  namespace: monitoring
 spec:
   selector:
     matchLabels:
@@ -91,7 +96,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: default
-  namespace: default
+  namespace: monitoring
 
 ---
 
@@ -99,15 +104,15 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: prometheus-server-conf
+  namespace: monitoring
   labels:
     name: prometheus-server-conf
-    # namespace: monitoring
 data:
   prometheus.rules: |-
     groups:
     - name: devopscube demo alert
       rules:
-      - alert: High Pod Meory
+      - alert: High Pod Memory
         expr: sum(container_memory_usage_bytes) > 1
         for: 1m
         labels:
@@ -128,6 +133,10 @@ data:
           - "alertmanager.monitoring.svc:9093"
 
     scrape_configs:
+      - job_name: 'kube-state-metrics'
+        static_configs:
+          - targets: ['kube-state-metrics.kube-system.svc.cluster.local:8080']
+
       - job_name: 'kubernetes-apiservers'
 
         kubernetes_sd_configs:
@@ -246,22 +255,4 @@ data:
 
 ---
 
-
-# Ingress example (when supported by cluster)
-
-# apiVersion: extensions/v1beta1
-# kind: Ingress
-# metadata:
-#   name: prometheus
-#   annotations:
-#     ingress.kubernetes.io/ssl-redirect: "false"
-#     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-# spec:
-#   rules:
-#     - http:
-#         paths:
-#           - path: /prometheus/metrics
-#             backend:
-#               serviceName: prometheus
-#               servicePort: 9090
 
