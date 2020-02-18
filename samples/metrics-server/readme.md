@@ -10,7 +10,11 @@ https://github.com/kubernetes-incubator/metrics-server
 
 2. If Metrics Server isn't listed run the following command (from this directory):
 
-    `kubectl create -f 1.8+`
+    `kubectl create -f ./kubernetes`
+
+3. Run the following command to get the metrics server Pod name:
+
+    `kubectl get pods -n kube-system`
 
 3. Run the following and make sure now errors are shown:
 
@@ -19,4 +23,4 @@ https://github.com/kubernetes-incubator/metrics-server
 
 Note: The `metrics-server-deployment.yaml` file has been modified for Docker Desktop as mentioned here:
 
-https://github.com/docker/for-mac/issues/2751#issuecomment-441833752
+https://blog.codewithdan.com/enabling-metrics-server-for-kubernetes-on-docker-desktop

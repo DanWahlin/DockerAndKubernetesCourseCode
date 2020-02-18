@@ -5,7 +5,7 @@ metadata:
   name: metrics-server
   namespace: kube-system
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: metrics-server
@@ -29,13 +29,24 @@ spec:
         emptyDir: {}
       containers:
       - name: metrics-server
-        image: k8s.gcr.io/metrics-server-amd64:v0.3.1
-        imagePullPolicy: Always
-        # Added the following lines for command to make it work in Docker Desktop
-        command:
-          - /metrics-server
+        image: k8s.gcr.io/metrics-server-amd64:v0.3.6
+        # Modified args to include --kubelet-insecure-tls for Docker Desktop (don't use this flag with a real k8s cluster!!)
+        args:
+          - --cert-dir=/tmp
+          - --secure-port=4443
           - --kubelet-insecure-tls
+        ports:
+        - name: main-port
+          containerPort: 4443
+          protocol: TCP
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1000
+        imagePullPolicy: Always
         volumeMounts:
         - name: tmp-dir
           mountPath: /tmp
-
+      nodeSelector:
+        beta.kubernetes.io/os: linux
+        kubernetes.io/arch: "amd64"
