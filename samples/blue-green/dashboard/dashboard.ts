@@ -8,9 +8,12 @@ const appsV1Api = kc.makeApiClient(k8s.AppsV1Api);
 const coreV1Api = kc.makeApiClient(k8s.CoreV1Api);
 const roles = ['blue', 'green'];
 
-appsV1Api.listNamespacedDeployment('default').then(res => {
+getDeployments().catch(console.error.bind(console));
+
+async function getDeployments() {
+    const deploymentsRes = await appsV1Api.listNamespacedDeployment('default');
     let deployments = [];
-    for (const deployment of res.body.items) {
+    for (const deployment of deploymentsRes.body.items) {
         let role = deployment.spec.template.metadata.labels.role;
         if (role && roles.includes(role)) {
             deployments.push({ 
@@ -23,27 +26,25 @@ appsV1Api.listNamespacedDeployment('default').then(res => {
             });
         }
     }
-    return deployments;
-})
-.then(deployments => {
-    coreV1Api.listNamespacedService('default').then(res => {
-        for (const service of res.body.items) {
-            if (service.spec.selector && service.spec.selector.role && roles.includes(service.spec.selector.role)) {
-                let filteredDeployments = deployments.filter(d => {
-                    return d.role === service.spec.selector.role;
-                });
-                if (filteredDeployments) {
-                    for (const d of filteredDeployments) {
-                        d.ports.push(service.spec.ports[0].port);
-                        d.services.push(service.metadata.name);
-                    }
+
+    const servicesRes = await coreV1Api.listNamespacedService('default');
+    for (const service of servicesRes.body.items) {
+        if (service.spec.selector && service.spec.selector.role && roles.includes(service.spec.selector.role)) {
+            let filteredDeployments = deployments.filter(d => {
+                return d.role === service.spec.selector.role;
+            });
+            if (filteredDeployments) {
+                for (const d of filteredDeployments) {
+                    d.ports.push(service.spec.ports[0].port);
+                    d.services.push(service.metadata.name);
                 }
             }
         }
+    }
 
-        renderTable(deployments);
-    });
-});
+    renderTable(deployments);
+
+}
 
 function renderTable(data, showHeader = true) {
     const table = new Table();
