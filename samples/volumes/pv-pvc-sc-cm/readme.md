@@ -5,6 +5,8 @@ only use the local-storage option, however in cloud scenarios the SC/PVC could b
 
 ## Running the MongoDB Deployment
 
+### IMPORTANT: PersistentVolumes and MongoDB have problems on **Windows**. The steps are being shown here for completeness, but there's a known issue so be aware.
+
 1. Create the following folder structure on your local system:
 
 Mac/Linux: /tmp/data/db

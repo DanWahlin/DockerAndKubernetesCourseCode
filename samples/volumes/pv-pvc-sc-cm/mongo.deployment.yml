@@ -1,3 +1,7 @@
+# IMPORTANT: PersistentVolumes and MongoDB have problems on Windows. 
+# The YAML is being shown here for completeness (for Windows/Mac/Linux), but there's a known issue
+# with Windows, Docker Desktop, and Kubernetes.
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
