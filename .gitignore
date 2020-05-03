@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 node_modules
 bin
 obj
+=======
+.DS_Store
+node_modules
+>>>>>>> a7a8d640b711aa32f7f6fe6f62af97afeaa24b06
