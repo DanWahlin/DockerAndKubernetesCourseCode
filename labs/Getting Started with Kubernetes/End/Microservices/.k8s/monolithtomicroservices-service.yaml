@@ -9,8 +9,8 @@ metadata:
   name: monolithtomicroservices
 spec:
   ports:
-  - name: "5000"
-    port: 5000
+  - name: "80"
+    port: 80
     targetPort: 80
   selector:
     io.kompose.service: monolithtomicroservices

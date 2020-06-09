@@ -9,8 +9,8 @@ metadata:
   name: lookup-api
 spec:
   ports:
-  - name: "8081"
-    port: 8081
+  - name: "80"
+    port: 80
     targetPort: 80
   selector:
     io.kompose.service: lookup-api
