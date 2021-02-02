@@ -51,6 +51,9 @@ spec:
   # persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   local:
+    # Note that Persistent Volumes and MongoDB with Kubernetes on Docker Desktop have been known to have issues on Windows. If the following
+    # 'path' value doesn't work directly you can try prepending /run/desktop/mnt/host/ to the 'path' property (ex: path: /run/desktop/mnt/host/c/tmp/data/db)
+    # https://stackoverflow.com/questions/62812948/volume-mounts-not-working-kubernetes-and-wsl-2-and-docker - thanks to Artiom Ciumac for the work around.
     path: /tmp/data/db
   nodeAffinity:
     required:
