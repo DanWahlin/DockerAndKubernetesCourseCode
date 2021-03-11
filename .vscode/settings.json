@@ -11,5 +11,6 @@
         "statusBar.foreground": "#e7e7e7",
         "activityBar.activeBackground": "#0081e1"
     },
-    "peacock.color": "#0064ae"
+    "peacock.color": "#0064ae",
+    "gitdoc.enabled": false
 }
