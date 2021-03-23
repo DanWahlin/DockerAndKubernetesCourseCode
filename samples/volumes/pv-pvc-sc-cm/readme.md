@@ -12,7 +12,7 @@ only use the local-storage option, however in cloud scenarios the SC/PVC could b
 Mac/Linux: /tmp/data/db
 Windows:   c:/temp/data/db
 
-2. If you're on Windows go into `mongo.deployment.yml` and change the PVs local path to /c/temp/data/db. Save the file.
+2. If you're on Windows go into `mongo.deployment.yml` and change the PVs local path to `/c/temp/data/db`. If you're using WSL with Docker desktop try using `/run/desktop/mnt/host/c/temp/data/db`. Save the file.
 
 3. Start up the Pod:
 
