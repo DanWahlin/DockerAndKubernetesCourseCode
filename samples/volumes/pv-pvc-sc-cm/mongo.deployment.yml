@@ -52,14 +52,9 @@ spec:
   storageClassName: local-storage
   local:
     # IMPORTANT NOTE: Persistent Volumes and MongoDB with Kubernetes on Docker Desktop have been known to have issues 
-    # on Windows and can even be affected by versions of MacOS.
-
-    # WINDOWS: If the following 'path' value doesn't work directly you can try prepending /run/desktop/mnt/host/ to the 'path' 
-    # property (ex: path: /run/desktop/mnt/host/c/tmp/data/db) https://stackoverflow.com/questions/62812948/volume-mounts-not-working-kubernetes-and-wsl-2-and-docker - thanks to Artiom Ciumac for the work around.
-    
-    # MAC: MacOS BigSur changed some things so if /tmp doesn't work (may be a symbolic link) trying replacing /tmp/data/db below
-    # with /private/tmp/data/db https://github.com/DanWahlin/DockerAndKubernetesCourseCode/issues/17 (thanks @Caleb9)
-    path: /tmp/data/db
+    # on Windows and can even be affected by versions of MacOS. Make sure you read through the
+    # steps in the readme.md file since you may need to change the following value.
+    path: /private/tmp/data/db
   nodeAffinity:
     required:
       nodeSelectorTerms:
