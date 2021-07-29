@@ -16,4 +16,4 @@ spec:
       containers:
       - image: node-app:1.0
         name: node-app
-        resources: 
+        resources: {}
