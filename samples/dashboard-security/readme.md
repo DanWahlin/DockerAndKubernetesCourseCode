@@ -7,7 +7,7 @@
 #### Step to use:
 1. Install the Kubernetes Dashboard:
 
-    `kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.3.1/aio/deploy/recommended.yaml`
+    `kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml`
 
 2. Run `kubectl apply -f dashboard.adminuser.yml`
 3. Get a token (see https://github.com/kubernetes/dashboard/wiki/Creating-sample-user) by running one of the following. Copy the token into your clipboard.
