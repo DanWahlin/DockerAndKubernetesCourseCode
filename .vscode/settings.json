@@ -12,7 +12,8 @@
         "activityBar.activeBackground": "#0081e1",
         "sash.hoverBorder": "#0081e1",
         "statusBarItem.remoteBackground": "#0064ae",
-        "statusBarItem.remoteForeground": "#e7e7e7"
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "tab.activeBorder": "#0081e1"
     },
     "peacock.color": "#0064ae",
     "gitdoc.enabled": false

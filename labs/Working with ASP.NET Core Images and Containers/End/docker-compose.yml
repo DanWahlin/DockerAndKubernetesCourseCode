@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+
+  linux-web:
+    container_name: aspnetcore-dev
+    image: aspnetcore-dev
+    build:
+      context: .
+      dockerfile: linux.dev.dockerfile
+    volumes:
+      - .:/app
+    ports:
+     - 3000:3000
+    networks:
+      - aspnetcoreapp-network
+
+  # windows-web:
+  #   container_name: 'aspnetcore-dev'
+  #   image: 'aspnetcore-dev'
+  #   build:
+  #     context: .
+  #     dockerfile: windows.dev.dockerfile
+  #   volumes:
+  #     - .:/app
+  #   ports:
+  #    - "3000:3000"
+  #   networks:
+  #     - aspnetcoreapp-network
+
+networks:
+  aspnetcoreapp-network:
+    driver: bridge
