@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Text.Json;
 using System.Net.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Customers.API.Models;
@@ -15,12 +14,10 @@ namespace Customers.API.Repository
     public class CustomersDbSeeder
     {
         readonly ILogger _Logger;
-        readonly IHttpClientFactory _HttpClientFactory;
 
-        public CustomersDbSeeder(ILoggerFactory loggerFactory, IHttpClientFactory httpClientFactory)
+        public CustomersDbSeeder(ILoggerFactory loggerFactory)
         {
             _Logger = loggerFactory.CreateLogger("CustomersDbSeederLogger");
-            _HttpClientFactory = httpClientFactory;
         }
 
         public async Task SeedAsync(IServiceProvider serviceProvider)
@@ -39,26 +36,22 @@ namespace Customers.API.Repository
 
         public async Task InsertCustomersSampleData(CustomersDbContext db)
         {
+            var httpClient = new HttpClient();
+            var statesString = await httpClient.GetStringAsync("http://lookup.api/api/v1/lookup/states");
+            var states = JsonSerializer.Deserialize<List<State>>(statesString, 
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var customers = GetCustomers(states);
+            db.Customers.AddRange(customers);
+
             try
             {
-                var httpClient = _HttpClientFactory.CreateClient("lookup-api");
-                var statesString = await httpClient.GetStringAsync("states");
-                if (!String.IsNullOrEmpty(statesString)) 
-                {
-                    var states = JsonSerializer.Deserialize<List<State>>(statesString, 
-                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                    var customers = GetCustomers(states);
-                    db.Customers.AddRange(customers);
-                    int numAffected = await db.SaveChangesAsync();
-                    _Logger.LogInformation($"Saved {numAffected} customers");
-                }
-                else {
-                    _Logger.LogInformation("No states were found from lookup-api call");
-                }
+              int numAffected = await db.SaveChangesAsync();
+                _Logger.LogInformation($"Saved {numAffected} customers");
             }
             catch (Exception exp)
             {
               _Logger.LogError($"Error in {nameof(CustomersDbSeeder)}: " + exp.Message);
+              throw;
             }
 
         }

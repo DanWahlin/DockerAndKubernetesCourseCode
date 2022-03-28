@@ -3,9 +3,9 @@ using Microsoft.Extensions.Options;
 using MonolithToMicroservices.Infrastructure;
 using MonolithToMicroservices.Models;
 using System;
-using System.Text.Json;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace MonolithToMicroservices.Repository

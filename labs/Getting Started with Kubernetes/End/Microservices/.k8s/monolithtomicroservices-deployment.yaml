@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert -f docker-compose.k8s.yml -o ./.k8s
+    kompose.cmd: kompose convert -f docker-compose.original.yml
     kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
   labels:
     io.kompose.service: monolithtomicroservices
   name: monolithtomicroservices
@@ -15,9 +16,7 @@ spec:
   strategy: {}
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert -f docker-compose.k8s.yml -o ./.k8s
-        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
       labels:
         io.kompose.service: monolithtomicroservices
     spec:

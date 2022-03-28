@@ -1,8 +1,8 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet AS base
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/core/sdk AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY Services/Lookup.API/Lookup.API.csproj Services/Lookup.API/
 RUN dotnet restore Services/Lookup.API/Lookup.API.csproj
