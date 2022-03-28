@@ -1,0 +1,43 @@
+@model MonolithToMicroservices.Models.Customer
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Orders for @Model.FirstName @Model.LastName</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    Product
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                   Price
+                </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Orders) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "Home")
+</div>

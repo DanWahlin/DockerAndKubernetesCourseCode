@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+
+  monolithtomicroservices:
+    image: monolithtomicroservices
+    build:
+      context: .
+      dockerfile: MonolithToMicroservices/Dockerfile
+    depends_on:
+      - lookup-api
+      - customers-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5000:80"
+
+  customers-api:
+    image: customers-api
+    build:
+      context: .
+      dockerfile: Services/Customers.API/Dockerfile
+    depends_on: 
+      - lookup-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8080:80"
+
+  lookup-api:
+    image: lookup-api
+    build:
+      context: .
+      dockerfile: Services/Lookup.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8081:80"

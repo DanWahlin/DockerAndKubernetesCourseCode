@@ -1,0 +1,83 @@
+@model MonolithToMicroservices.Models.CustomerViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Customer</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Customer.Id" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <label class="control-label">@Html.DisplayFor(model => model.Customer.Id)</label>
+                <input type="hidden" asp-for="Customer.Id" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Customer.FirstName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Customer.FirstName" class="form-control" />
+                <span asp-validation-for="Customer.FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Customer.LastName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Customer.LastName" class="form-control" />
+                <span asp-validation-for="Customer.LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Customer.Email" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Customer.Email" class="form-control" />
+                <span asp-validation-for="Customer.Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Customer.Address" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Customer.Address" class="form-control" />
+                <span asp-validation-for="Customer.Address" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Customer.City" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Customer.City" class="form-control" />
+                <span asp-validation-for="Customer.City" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">State</label>
+            <div class="col-md-10">
+                <select asp-for="Customer.StateId"
+                        class="form-control"
+                        asp-items="@(new SelectList(@Model.States, "Id", "Name"))"></select>
+                <span asp-validation-for="Customer.StateId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Customer.Zip" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Customer.Zip" class="form-control" />
+                <span asp-validation-for="Customer.Zip" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
