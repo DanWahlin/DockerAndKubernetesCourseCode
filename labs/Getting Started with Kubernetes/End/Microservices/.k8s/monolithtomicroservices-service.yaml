@@ -3,7 +3,7 @@ kind: Service
 metadata:
   annotations:
     kompose.cmd: kompose convert -f docker-compose.original.yml
-    kompose.version: 1.21.0 (992df58d8)
+    kompose.version: 1.16.0 (0c01309)
   creationTimestamp: null
   labels:
     io.kompose.service: monolithtomicroservices

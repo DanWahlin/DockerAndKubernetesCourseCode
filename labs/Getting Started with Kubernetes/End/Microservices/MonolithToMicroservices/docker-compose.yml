@@ -33,7 +33,7 @@ services:
     ports:
      - 80
     depends_on:
-      - lookup.api
+      - lookup-api
     networks:
       - aspnetcoreapp-network
 

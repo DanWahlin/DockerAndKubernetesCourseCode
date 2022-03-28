@@ -6,27 +6,27 @@ metadata:
     kompose.version: 1.21.0 (992df58d8)
   creationTimestamp: null
   labels:
-    io.kompose.service: customers-api
-  name: customers-api
+    io.kompose.service: lookup-api
+  name: lookup-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: customers-api
+      io.kompose.service: lookup-api
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        io.kompose.service: customers-api
+        io.kompose.service: lookup-api
     spec:
       containers:
       - env:
         - name: ASPNETCORE_ENVIRONMENT
           value: Development
-        image: customers-api
+        image: lookup-api
         imagePullPolicy: IfNotPresent
-        name: customers-api
+        name: lookup-api
         ports:
         - containerPort: 80
         resources: {}

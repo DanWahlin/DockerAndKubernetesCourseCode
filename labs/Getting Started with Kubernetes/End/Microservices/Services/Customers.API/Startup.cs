@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Polly;
 using Microsoft.EntityFrameworkCore;
 using Customers.API.Repository;
 using Microsoft.OpenApi.Models;
@@ -58,6 +59,19 @@ namespace Customers.API
             services.AddScoped<ICustomersRepository, CustomersRepository>();
             services.AddScoped<ICustomerOrdersRepository, CustomerOrdersRepository>();
             services.AddTransient<CustomersDbSeeder>();
+
+            services.AddHttpClient("lookup-api", client =>
+            {
+                client.BaseAddress = new Uri(Configuration["LookupUri"]);
+            })
+            .AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
+            {
+                TimeSpan.FromSeconds(2),
+                TimeSpan.FromSeconds(6),
+                TimeSpan.FromSeconds(10)
+            }, (exception, timeSpan, context) => {
+                Console.WriteLine("Retrying HttpClient");
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
