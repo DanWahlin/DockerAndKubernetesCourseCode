@@ -16,7 +16,7 @@ namespace MonolithToMicroservices.Infrastructure
 
         public StandardHttpClient(ILogger<StandardHttpClient> logger)
         {
-            _client = new HttpClient();
+            _client = new HttpClient(); // Quick and easy "demo" way to create this. Refer to the docs for creating it in Startup.cs.
             _logger = logger;
         }
 
