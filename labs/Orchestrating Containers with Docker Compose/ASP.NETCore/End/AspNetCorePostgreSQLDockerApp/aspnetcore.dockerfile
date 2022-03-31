@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk
+FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine
 
 LABEL author="Dan Wahlin"
 
@@ -10,7 +10,7 @@ COPY . .
 
 EXPOSE 5000
 
-ENTRYPOINT ["/bin/bash", "-c", "dotnet restore && dotnet run"]
+ENTRYPOINT ["/bin/sh", "-c", "dotnet restore && dotnet run"]
 
 # Note that this is only for demo and is intended to keep things simple. 
 # A multi-stage dockerfile would normally be used here to build the .dll and use
