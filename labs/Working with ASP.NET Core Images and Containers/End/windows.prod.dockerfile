@@ -10,7 +10,7 @@ WORKDIR     /app
 
 COPY        ./dist /app
 
-ENTRYPOINT  ["dotnet", "ASPNET-Core-And-Docker.dll"]
+ENTRYPOINT  ["dotnet", "ASPNET-Core-Docker.dll"]
 
 
 
