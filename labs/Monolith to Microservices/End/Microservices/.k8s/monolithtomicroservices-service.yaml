@@ -15,5 +15,6 @@ spec:
     targetPort: 80
   selector:
     io.kompose.service: monolithtomicroservices
+  type: LoadBalancer
 status:
   loadBalancer: {}

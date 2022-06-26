@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: echo-job
+spec:
+  completions: 4 # require 4 Pods to complete for a succesful job
+  parallelism: 2 # allow up to 2 Pods to run in parallel
+  activeDeadlineSeconds: 30 # how long can the job be active before it's terminated?
+  template:
+    metadata:
+      name: echo-job
+    spec:
+      restartPolicy: Never # OnFailure or Never
+      containers:
+      - name: echo-job
+        image: busybox
+        command:
+         - "sh"
+         - "-c"
+         - "echo hello; sleep 5;"
