@@ -2,7 +2,7 @@
 
 1. Deploy the Deployment and Service by running the following command:
 
-    `kubectl create -f ./ --save-config --record`
+    `kubectl create -f ./ --save-config`
 
 1. Run `kubectl get all` and notice that 4 Pods, 1 Deployment, and 1 ReplicaSet have successfully been deployed.
 1. Open a separate command window and run one of the following scripts based on your OS to call into the nginx Pods:
