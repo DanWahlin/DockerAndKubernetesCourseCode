@@ -10,7 +10,7 @@
     `kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml`
 
 2. Run `kubectl apply -f dashboard.adminuser.yml`
-3. Get a token (see https://github.com/kubernetes/dashboard/wiki/Creating-sample-user) by running the following. Copy the token into your clipboard.
+3. Get a token (see https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md) by running the following. Copy the token into your clipboard.
 
     `kubectl -n kubernetes-dashboard create token admin-user`
 
