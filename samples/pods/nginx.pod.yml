@@ -13,12 +13,12 @@ spec:
     - containerPort: 80
     resources: {}
       
-# kubectl create –f nginx.pod.yml --save-config
+# kubectl create -f nginx.pod.yml --save-config
 # kubectl describe pod [pod-name]
-# kubectl apply –f nginx.pod.yml
+# kubectl apply -f nginx.pod.yml
 # kubectl exec [pod-name] -it sh
 # kubectl edit -f nginx.pod.yml
-# Kubectl delete –f nginx.pod.yml
+# Kubectl delete -f nginx.pod.yml
 
 # To exec into container use:
 # kubectl exec pod-name -it sh
