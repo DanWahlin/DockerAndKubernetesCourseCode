@@ -14,6 +14,7 @@ namespace Customers.API.Repository
 {
     public class CustomersDbSeeder
     {
+        private static readonly JsonSerializerOptions _JsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         readonly ILogger _Logger;
         readonly IHttpClientFactory _HttpClientFactory;
 
@@ -45,8 +46,7 @@ namespace Customers.API.Repository
                 var statesString = await httpClient.GetStringAsync("states");
                 if (!String.IsNullOrEmpty(statesString)) 
                 {
-                    var states = JsonSerializer.Deserialize<List<State>>(statesString, 
-                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    var states = JsonSerializer.Deserialize<List<State>>(statesString, _JsonSerializerOptions);
                     var customers = GetCustomers(states);
                     db.Customers.AddRange(customers);
                     int numAffected = await db.SaveChangesAsync();
