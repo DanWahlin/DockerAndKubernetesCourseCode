@@ -12,6 +12,7 @@ namespace MonolithToMicroservices.Repository
 {
     public class CustomersRepository : ICustomersRepository
     {
+        private static readonly JsonSerializerOptions _JsonSerializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         IHttpClient _HttpClient;
         IApiSettings _ApiSettings;
         ILogger _Logger;
@@ -31,8 +32,7 @@ namespace MonolithToMicroservices.Repository
             try
             {
                 var dataString = await _HttpClient.GetStringAsync(_ApiSettings.CustomersUri);
-                customers = JsonSerializer.Deserialize<List<Customer>>(dataString, 
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                customers = JsonSerializer.Deserialize<List<Customer>>(dataString, _JsonSerializerOptions);
             }
             catch (Exception exp)
             {
@@ -49,8 +49,7 @@ namespace MonolithToMicroservices.Repository
             try
             {
                 var dataString = await _HttpClient.GetStringAsync($"{_ApiSettings.CustomersUri}/{id}");
-                customer = JsonSerializer.Deserialize<Customer>(dataString, 
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                customer = JsonSerializer.Deserialize<Customer>(dataString, _JsonSerializerOptions);
             }
             catch (Exception exp)
             {
@@ -67,8 +66,7 @@ namespace MonolithToMicroservices.Repository
             try
             {
                 var dataString = await _HttpClient.GetStringAsync($"{_ApiSettings.CustomerOrdersUri}/{id}");
-                customer = JsonSerializer.Deserialize<Customer>(dataString, 
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                customer = JsonSerializer.Deserialize<Customer>(dataString, _JsonSerializerOptions);
             }
             catch (Exception exp)
             {
@@ -87,8 +85,7 @@ namespace MonolithToMicroservices.Repository
                 var response = await _HttpClient.PostAsync(_ApiSettings.CustomersUri, customer);
                 response.EnsureSuccessStatusCode(); //throw error if not success/200
                 var dataString = await response.Content.ReadAsStringAsync();
-                newCustomer = JsonSerializer.Deserialize<Customer>(dataString, 
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                newCustomer = JsonSerializer.Deserialize<Customer>(dataString, _JsonSerializerOptions);
             }
             catch (Exception exp)
             {
@@ -107,8 +104,7 @@ namespace MonolithToMicroservices.Repository
                 var response = await _HttpClient.PutAsync($"{_ApiSettings.CustomersUri}/{customer.Id}", customer);
                 response.EnsureSuccessStatusCode(); //throw error if not success/200
                 var dataString = await response.Content.ReadAsStringAsync();
-                apiResponse = JsonSerializer.Deserialize<ApiResponse>(dataString, 
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                apiResponse = JsonSerializer.Deserialize<ApiResponse>(dataString, _JsonSerializerOptions);
             }
             catch (Exception exp)
             {
@@ -127,8 +123,7 @@ namespace MonolithToMicroservices.Repository
                 var response = await _HttpClient.DeleteAsync($"{_ApiSettings.CustomersUri}/{id}");
                 response.EnsureSuccessStatusCode(); //throw error if not success/200
                 var dataString = await response.Content.ReadAsStringAsync();
-                apiResponse = JsonSerializer.Deserialize<ApiResponse>(dataString, 
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                apiResponse = JsonSerializer.Deserialize<ApiResponse>(dataString, _JsonSerializerOptions);
             }
             catch (Exception exp)
             {
