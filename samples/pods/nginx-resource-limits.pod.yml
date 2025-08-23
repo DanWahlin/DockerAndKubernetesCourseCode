@@ -11,7 +11,7 @@ spec:
     resources:
       requests:
         memory: "64Mi" #64 MB
-        cpu: "250m" #250 millicpu (.25 cpu or 25% of the cpu)
+        cpu: "100m" #100 millicpu (.1 cpu or 10% of the cpu)
       limits:
         memory: "128Mi" #128 MB
-        cpu: "100m" #100 millicpu (.1 cpu or 10% of the cpu)
+        cpu: "250m" #250 millicpu (.25 cpu or 25% of the cpu)

@@ -11,11 +11,11 @@ spec:
     image: nginx:alpine
     resources:
       requests:
-        memory: "64Mi" #64 MB
-        cpu: "250m" #250 millicpu (.25 cpu or 25% of the cpu)
+        memory: "64Mi"
+        cpu: "250m"
       limits:
-        memory: "128Mi" #128 MB
-        cpu: "200m" #200 millicpu (.2 cpu or 20% of the cpu)
+        memory: "128Mi"
+        cpu: "300m"
     ports:
     - containerPort: 80
     livenessProbe:
