@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: node-app
 spec:
-  replicas: 3
+  replicas: 4
   selector:
     matchLabels:
       app: node-app
@@ -15,4 +15,10 @@ spec:
       containers:
       - image: node-app:2.0
         name: node-app
-        resources: {}
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"

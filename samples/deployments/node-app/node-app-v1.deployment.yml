@@ -3,11 +3,10 @@ kind: Deployment
 metadata:
   name: node-app
 spec:
-  replicas: 3
-  minReadySeconds: 10
+  replicas: 4
   selector:
-      matchLabels:
-        app: node-app
+    matchLabels:
+      app: node-app
   template:
     metadata:
       labels:
@@ -16,4 +15,10 @@ spec:
       containers:
       - image: node-app:1.0
         name: node-app
-        resources: {}
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
